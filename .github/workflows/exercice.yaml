@@ -8,6 +8,7 @@ on:
         description: 'Skip pushing to DockerHub'
         required: false
         default: false
+
 jobs:
   lint-and-test:
     name: Linting and testing
@@ -43,14 +44,16 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v4
+
       - name: Login to Dockerhub
         env:
-            DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-            DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
       - name: Build docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/github-action-school .
+
       - name: Push to Dockerhub
-        if: ${{ !inputs.skip_push }}
+        if: ${{ inputs.skip_push == 'false' }}
         run: docker push ${{ secrets.DOCKER_USERNAME }}/github-action-school
