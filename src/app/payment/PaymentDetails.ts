@@ -4,9 +4,9 @@ export enum PaymentMethod {
   BankTransfer = 'bank_transfer',
 }
 
-export interface PaymentDetails {
-  amount: number;
-  currency: string;
-  method: PaymentMethod;
-  cardNumber?: string;
-}
+  export interface PaymentDetails {
+    amount: number;
+    currency: string;
+    method: PaymentMethod;
+    cardNumber?: string;
+  }
