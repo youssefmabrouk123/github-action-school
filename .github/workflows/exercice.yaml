@@ -55,5 +55,5 @@ jobs:
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/github-action-school .
 
       - name: Push to Dockerhub
-        if: ${{ inputs.skip_push == 'false' }}
+        if: ${{ !inputs.skip_push  }}
         run: docker push ${{ secrets.DOCKER_USERNAME }}/github-action-school
