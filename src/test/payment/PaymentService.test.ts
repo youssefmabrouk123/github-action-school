@@ -12,24 +12,23 @@ describe('Payment Service', () => {
   });
 
   test('should successfully process a valid payment', () => {
-    // ws
-    //TODO: Create paymentDetails object initialized with fake data
+    // Arrange
     const CreditCard: PaymentMethod = PaymentMethod.CreditCard;
     const fakePaymentDetails: PaymentDetails = { amount: 200, currency: 'USD', method: CreditCard };
-    //TODO: Create mockProcessPaymentResponse object containing success status and a fake transactiondId
     const mockProcessPaymentResponse = { status: 'success', transactionId: 'txn_1234567890' };
-    //TODO: Mock processPayment implementation
+  
+    // Mock processPayment implementation
     paymentAdapterMock.processPayment.mockReturnValue(mockProcessPaymentResponse);
+  
     // Act
     const result = paymentService.makePayment(fakePaymentDetails);
-
+  
     // Assert
-    // Check the returned result is equal to the success message returned by makePayment with thefake  transactionId you have defined in mockProcessPaymentResponse
-    expect(result).toEqual('Payment successful. Transaction ID: ${mockProcessPaymentResponse.transactionId}');
-    // Check that processPayment inside makePayment has been called with paymentDetails
+    // Use backticks for template literals
+    expect(result).toEqual(`Payment successful. Transaction ID: ${mockProcessPaymentResponse.transactionId}`);
     expect(paymentAdapterMock.processPayment).toHaveBeenCalledWith(fakePaymentDetails);
-
-  });
+  });
+  
 
   test('should throw an error for payment failure', () => {
     // Arrange
